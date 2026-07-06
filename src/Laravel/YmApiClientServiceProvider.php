@@ -21,6 +21,7 @@ class YmApiClientServiceProvider extends ServiceProvider
                     'timeout'        => config('ym-api-client.http.timeout'),
                     'retry_times'    => config('ym-api-client.http.retry.times'),
                     'retry_sleep_ms' => config('ym-api-client.http.retry.sleep_ms'),
+                    'base_url' => config('ym-api-client.base_url'),
                 ]
             );
         });

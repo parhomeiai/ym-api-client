@@ -14,12 +14,17 @@ abstract class AbstractYmApi
     protected HttpClientInterface $http;
     protected TokenProviderInterface $token;
 
+    protected string $baseUrl;
+
     public function __construct(
         HttpClientInterface $http,
-        TokenProviderInterface $token)
+        TokenProviderInterface $token,
+        ?string $baseUrl = null)
     {
         $this->http = $http;
         $this->token = $token;
+
+        $this->baseUrl = ($baseUrl) ? ($baseUrl) : ('https://api.partner.market.yandex.ru');
     }
 
     /**

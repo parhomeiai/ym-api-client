@@ -9,6 +9,7 @@ use GuzzleHttp\Psr7\HttpFactory;
 use Psr\Http\Client\ClientInterface;
 
 use Escorp\YmApiClient\Api\Common\PingApi;
+use Escorp\YmApiClient\Api\Campaigns\CampaignsApi;
 
 use Escorp\YmApiClient\Auth\StaticTokenProvider;
 use Escorp\YmApiClient\Http\GuzzleHttpClient;
@@ -32,6 +33,7 @@ final class YmApiClientFactory
         $timeout = $options['timeout'] ?? 10;
         $retryTimes = $options['retry_times'] ?? 3;
         $retrySleepMs = $options['retry_sleep_ms'] ?? 300;
+        $baseUrl = $options['base_url'] ?? null;
 
         if ($psr18Client === null) {
             // дефолтный Guzzle → PSR-18 адаптер
@@ -51,11 +53,14 @@ final class YmApiClientFactory
         $tokenProvider = new StaticTokenProvider($token);
 
         //Domain API
-        $pingApi = new PingApi($guzzleHttpClient, $tokenProvider);
+        $pingApi = new PingApi($guzzleHttpClient, $tokenProvider, $baseUrl);
+
+        $campaignsApi = new CampaignsApi($guzzleHttpClient, $tokenProvider, $baseUrl);
 
         //Root client
         return new YmApiClient(
-                    $pingApi
+                    $pingApi,
+                    $campaignsApi
                 );
     }
 }
