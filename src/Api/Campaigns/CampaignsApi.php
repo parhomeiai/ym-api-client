@@ -4,6 +4,7 @@ namespace Escorp\YmApiClient\Api\Campaigns;
 
 use Escorp\YmApiClient\Api\AbstractYmApi;
 use Escorp\YmApiClient\Dto\Campaigns\CampaignsResponse;
+use Escorp\YmApiClient\Dto\Campaigns\CampaignDTO;
 
 /**
  * Кабинеты и магазины
@@ -50,5 +51,19 @@ class CampaignsApi extends AbstractYmApi
         }while($nexPage);
 
         return $result;
+    }
+
+    /**
+     * Возвращает информацию о магазине.
+     * @param int $campaignId
+     * @return CampaignDTO
+     */
+    public function getCampaignById(int $campaignId): CampaignDTO
+    {
+        $url = $this->baseUrl . '/v2/campaigns/' . $campaignId;
+
+        $response = $this->request('GET', $url);
+
+        return CampaignDTO::fromArray($response);
     }
 }

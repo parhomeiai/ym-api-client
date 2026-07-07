@@ -79,6 +79,10 @@ class CampaignDTO {
      */
     public static function fromArray(array $data): self
     {
+        if(isset($data['campaign'])){
+            $data = $data['campaign'];
+        }
+
         $types = [];
         foreach ($data['types'] ?? [] as $type) {
             $types[] = NewsTypesDto::fromArray($type);
