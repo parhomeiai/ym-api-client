@@ -3,7 +3,7 @@
 
 namespace Escorp\YmApiClient\Exceptions;
 
-use Escorp\YmApiClient\Dto\YmErrorDto;
+use Escorp\YmApiClient\Dto\YmErrorResponseDto;
 
 /**
  * Расширенный Exception для ошибок Http
@@ -15,17 +15,18 @@ class YmHttpException extends YmApiClientException
 
     /**
      * DTO ошибки Ym
-     * @var YmErrorDto
+     * @var YmErrorResponseDto
      */
-    private YmErrorDto $error;
+    private YmErrorResponseDto $error;
 
     /**
      *
      * @param YmErrorDto $error
      */
-    public function __construct(YmErrorDto $error, $httpStatus = null)
+    public function __construct(YmErrorResponseDto $error, $httpStatus = null)
     {
-        parent::__construct($error->title . ': ' . $error->detail, $error->status);
+        parent::__construct('Ошибка', (int)$httpStatus);
+
         $this->error = $error;
         $this->httpStatus = $httpStatus;
     }
@@ -34,7 +35,7 @@ class YmHttpException extends YmApiClientException
      * Возвращает DTO ошибки WB
      * @return YmErrorDto
      */
-    public function getError(): YmErrorDto
+    public function getError(): YmErrorResponseDto
     {
         return $this->error;
     }

@@ -7,7 +7,7 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Escorp\YmApiClient\Contracts\HttpClientInterface;
-use Escorp\YmApiClient\Dto\YmErrorDto;
+use Escorp\YmApiClient\Dto\YmErrorResponseDto;
 use Escorp\YmApiClient\Exceptions\YmApiClientException;
 use Escorp\YmApiClient\Exceptions\YmHttpException;
 use InvalidArgumentException;
@@ -156,7 +156,7 @@ final class Psr18HttpClient implements HttpClientInterface
                 $data = json_decode($body, true);
 
                 if (json_last_error() === JSON_ERROR_NONE && !empty($data)) {
-                    throw new YmHttpException(YmErrorDto::fromArray($data), $status);
+                    throw new YmHttpException(YmErrorResponseDto::fromArray($data), $status);
                 }
 
                 throw new YmApiClientException(
