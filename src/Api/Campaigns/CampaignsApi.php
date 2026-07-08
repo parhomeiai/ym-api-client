@@ -5,6 +5,7 @@ namespace Escorp\YmApiClient\Api\Campaigns;
 use Escorp\YmApiClient\Api\AbstractYmApi;
 use Escorp\YmApiClient\Dto\Campaigns\CampaignsResponse;
 use Escorp\YmApiClient\Dto\Campaigns\CampaignDTO;
+use Escorp\YmApiClient\Dto\Campaigns\SettingsResponse;
 
 /**
  * Кабинеты и магазины
@@ -65,5 +66,19 @@ class CampaignsApi extends AbstractYmApi
         $response = $this->request('GET', $url);
 
         return CampaignDTO::fromArray($response);
+    }
+
+    /**
+     * Информация о кабинете и его настройках.
+     * @param int $businessId
+     * @return SettingsResponse
+     */
+    public function settings(int $businessId): SettingsResponse
+    {
+        $url = $this->baseUrl . '/v2/businesses/' . $businessId . '/settings';
+
+        $response = $this->request('POST', $url);
+
+        return SettingsResponse::fromArray($response);
     }
 }

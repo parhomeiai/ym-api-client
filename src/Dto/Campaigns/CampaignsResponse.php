@@ -35,9 +35,9 @@ class CampaignsResponse extends YmApiResponseDto
 
     public static function fromArray(array $response): self
     {
-        $lemanaProApiResponseDto = parent::fromArray($response);
+        $ymApiResponseDto = parent::fromArray($response);
 
-        $dto = new self($lemanaProApiResponseDto->data);
+        $dto = new self($ymApiResponseDto->data);
 
         $items = $response['campaigns'] ?? [];
 
