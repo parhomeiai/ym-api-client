@@ -10,6 +10,7 @@ use Psr\Http\Client\ClientInterface;
 
 use Escorp\YmApiClient\Api\Common\PingApi;
 use Escorp\YmApiClient\Api\Campaigns\CampaignsApi;
+use Escorp\YmApiClient\Api\Products\CategoriesApi;
 
 use Escorp\YmApiClient\Auth\StaticTokenProvider;
 use Escorp\YmApiClient\Http\GuzzleHttpClient;
@@ -57,10 +58,13 @@ final class YmApiClientFactory
 
         $campaignsApi = new CampaignsApi($guzzleHttpClient, $tokenProvider, $baseUrl);
 
+        $categoriesApi = new CategoriesApi($guzzleHttpClient, $tokenProvider, $baseUrl);
+
         //Root client
         return new YmApiClient(
                     $pingApi,
-                    $campaignsApi
+                    $campaignsApi,
+                    $categoriesApi
                 );
     }
 }
