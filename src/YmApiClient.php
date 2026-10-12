@@ -5,6 +5,7 @@ namespace Escorp\YmApiClient;
 use Escorp\YmApiClient\Api\Common\PingApi;
 use Escorp\YmApiClient\Api\Campaigns\CampaignsApi;
 use Escorp\YmApiClient\Api\Products\CategoriesApi;
+use Escorp\YmApiClient\Api\Orders\OrdersApi;
 
 class YmApiClient
 {
@@ -14,16 +15,21 @@ class YmApiClient
 
     public CategoriesApi $categoriesApi;
 
+    public OrdersApi $ordersApi;
+
     public function __construct(
             PingApi $ping,
             CampaignsApi $campaigns,
-            CategoriesApi $categoriesApi
+            CategoriesApi $categoriesApi,
+            OrdersApi $ordersApi
     ) {
         $this->ping = $ping;
 
         $this->campaignsApi = $campaigns;
 
         $this->categoriesApi = $categoriesApi;
+
+        $this->ordersApi = $ordersApi;
     }
 
     public function ping(): string
@@ -58,5 +64,15 @@ class YmApiClient
     public function categoriesApi(): CategoriesApi
     {
         return $this->categoriesApi;
+    }
+
+    /**
+     * Заказы
+     *
+     * @return OrdersApi
+     */
+    public function ordersApi(): OrdersApi
+    {
+        return $this->ordersApi;
     }
 }
